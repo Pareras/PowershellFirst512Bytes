@@ -1,0 +1,14 @@
+# Var
+$inputFile = "pad/naar/jouw/bestand.txt"  # Vervang dit door het pad naar je bronbestand
+$outputFile = "output.txt"  # Bestemming voor de output
+
+# Open file en read first 512 bytes
+$bytes = [System.IO.File]::ReadAllBytes($inputFile)
+
+# Grep first 512 bytes
+$first512Bytes = $bytes[0..([math]::Min(511, $bytes.Length - 1))]
+
+# write 512 bytes to export
+[System.IO.File]::WriteAllBytes($outputFile, $first512Bytes)
+
+Write-Host "Copied first 512 bytes to $outputFile."
